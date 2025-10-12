@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mx-auto">
+    <h2 class="text-2xl font-bold mb-4">No Permission</h2>
+    <p class="text-gray-600 mb-4">You do not have permission to access this page</p>
+    <p class="text-gray-600 mb-4">Please contact the administrator for assistance or try to login with another account</p>
+    <a href="{% url 'login' %}" class="bg-blue-500 block mt-2 cursor-pointer px-2 py-1 text-white font-semibold rounded">Login</a>
+    <a href="{% url 'register' %}" class="bg-blue-500 block mt-2 cursor-pointer px-2 py-1 text-white font-semibold rounded">Register</a>
+    <a href="{% url 'home' %}" class="bg-blue-500 block mt-2 cursor-pointer px-2 py-1 text-white font-semibold rounded">Home</a>
+</div>
+{% endblock content %}

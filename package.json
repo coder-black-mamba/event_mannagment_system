@@ -1,0 +1,26 @@
+{
+  "name": "event_mannagment_system_phitron_sdp_asgmt_01",
+  "version": "1.0.0",
+  "description": "https://drive.google.com/file/d/1coftbRBXnVh8H1u2qEqVU5nPClzdn_SP/view",
+  "main": "postcss.config.js",
+  "scripts": {
+"build:tailwind": "npx @tailwindcss/cli -i ./static/css/tailwind.css -o ./static/css/output.css --minify",
+"watch:tailwind": "npx @tailwindcss/cli -i ./static/css/tailwind.css -o ./static/css/output.css --watch"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coder-black-mamba/event_mannagment_system_phitron_sdp_asgmt_01.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/coder-black-mamba/event_mannagment_system_phitron_sdp_asgmt_01/issues"
+  },
+  "homepage": "https://github.com/coder-black-mamba/event_mannagment_system_phitron_sdp_asgmt_01#readme",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.11",
+    "tailwindcss": "^4.1.11"
+  }
+}

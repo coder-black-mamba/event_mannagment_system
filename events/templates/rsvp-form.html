@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mx-auto mb-64 w-[100vh]">
+
+    <h1 class="text-3xl font-bold my-5 text-center">RSVP Form</h1>
+    <div class="w-full md:w-1/2 mx-auto bg-white shadow-sm p-5 mt-10 mb-64">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="px-4 py-2 text-center  bg-red-100 text-red-500  rounded my-2 border border-red-500 ">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <h2 class="text-center text-rose-500">I am acknowledging that I will attend the event </h2>   
+        <h2 class="text-center text-2xl font-bold">{{ event.name }}</h2>     
+        <p class="text-center">On Date : {{ event.date }}</p>
+        <p class="text-center">On Time : {{ event.time }}</p>
+        <p class="text-center">Location : {{ event.location }}</p>
+        <p class="text-center">Description : {{ event.description }}</p>
+        <p class="text-center text-sm mt-5">By clicking the button below, I acknowledge that I will attend the event and agree to the <a href="{% url 'event-detail' event.id %}" class="text-blue-500">terms and conditions</a>.</p>
+    <form action="{% url 'rsvp' event.id %}" method="post" class="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" {% if expired %}disabled{% endif %} class="{% if expired %}bg-gray-500 text-white px-4 py-2 rounded w-full cursor-not-allowed my-2{% else %}bg-rose-500 text-white px-4 py-2 rounded w-full cursor-pointer my-2{% endif %}">Reserve Spot</button>
+    </form>
+    <a href="{% url 'event-detail' event.id %}" class="text-blue-500 text-center py-2 block mt-3">Back to Event</a>
+    </div>
+</div>
+{% endblock content %}

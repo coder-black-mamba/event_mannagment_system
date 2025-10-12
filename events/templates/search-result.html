@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<form action="/events/search" method="get" class="container mx-auto my-5">
+    <div class="flex justify-center items-center gap-2 w-1/2 mx-auto">
+        {% comment %} <h3>Search for Events</h3> {% endcomment %}
+        <input
+        type="search"
+        name="q"
+        id="search"
+        placeholder="Search Again"
+        class="w-full px-7 py-2 text-lg border border-gray-300 rounded-md  "
+        />
+        <button
+        type="submit"
+        class=" w-full  px-7 py-2 text-lg bg-rose-600 text-white rounded-md cursor-pointer hover:bg-rose-700"
+        >
+        Search
+    </button>
+</div>
+</form>
+
+
+{% include 'event-list.html' %}
+{% endblock content %}

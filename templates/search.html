@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero-area   bg-gradient-to-br from-rose-200 to-amber-600 ">
+    <div class="container mx-auto h-[calc(100vh-100px)] flex items-center justify-center flex-col px-2">
+        <h1 class="text-5xl font-bold text-gray-800 mb-4">Find Your Next DJ BAHARUL Event</h1>
+        <form action="/events/search" method="get">
+            <div class=" ">
+                <input
+                type="search"
+                name="q"
+                id="search"
+                placeholder="Search for Events"
+                class="w-full px-7 py-2 text-lg border border-gray-300 rounded-md  "
+                />
+                <button
+                type="submit"
+                class=" w-full  px-7 py-2 mt-2 text-lg bg-rose-600 text-white rounded-md cursor-pointer hover:bg-rose-700"
+                >
+                Search
+            </button>
+        </div>
+    </form>
+    </div>
+    <div class="h-[calc(100vh-100px)]">
+    </div>
+</section>
+{% endblock %}
