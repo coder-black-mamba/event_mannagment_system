@@ -1,48 +1,121 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block title %}Participant Dashboard{% endblock title %}
+
 {% block content %}
-<div class="container mx-auto">
-    <div class="h-[100vh]">
-       
-        <h2 class="text-2xl font-bold mb-4">Participant Dashboard</h2>
-        <p class="text-gray-600 mb-4">Welcome to your Participant Dashboard</p>
-        <p class="text-gray-600 mb-4">Here you can view all the events you have RSVP'd to</p>
-        <div class="overflow-x-auto">
-            <table class="table-auto w-full border-collapse border border-gray-300">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="border border-gray-300 px-4 py-2">Event Name</th>
-                        <th class="border border-gray-300 px-4 py-2">Event Date</th>
-                    <th class="border border-gray-300 px-4 py-2">Event Time</th>
-                    <th class="border border-gray-300 px-4 py-2">Event Location</th>
-                    <th class="border border-gray-300 px-4 py-2">Event Description</th>
-                    <th class="border border-gray-300 px-4 py-2">Event Category</th>
-                    <th class="border border-gray-300 px-4 py-2">Event Image</th>
-                    <th class="border border-gray-300 px-4 py-2">Event RSVP</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% if events.count != 0 %}
-                {% for event in events %}
-                <tr class="odd:bg-white even:bg-gray-50">
-                    <td class="border border-gray-300 px-4 py-2 font-medium">{{event.event.name}} | ID: {{event.event.id}}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{event.event.date}}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{event.event.time}}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{event.event.location}}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{event.event.description}}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{event.event.category}}</td>
-                    <td class="border border-gray-300 px-4 py-2"><img src="{{event.event.event_img.url}}" alt="{{event.event.name}}" class="w-24 h-24 object-cover"></td>
-                    <td class="border border-gray-300 px-4 py-2">{{event.rsvp|yesno:"RESERVED,NOT RESERVED"}} <a href="{% url 'cancel-rsvp' event.event.id %}" class="bg-rose-500 block mt-2 cursor-pointer px-2 py-1 text-white font-semibold rounded">Cancel RSVP</a></td>
-                    </tr>
-                    {% endfor %}
-                {% else %}
-                <tr>
-                    <td colspan="8" class="text-center py-4">No events found</td>
-                </tr>
-                {% endif %}
-            </tbody>    
-            </table>
+<div class="min-h-screen bg-gray-900 py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-10">
+            <h1 class="text-3xl font-bold text-white">My Events</h1>
+            <p class="mt-2 text-cyan-100">Here are all the events you've RSVP'd to</p>
+            <div class="mt-4">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-cyan-900 text-cyan-300">
+                    {{ events.count }} Upcoming Event{{ events.count|pluralize }}
+                </span>
+            </div>
         </div>
+
+        <!-- Events Grid -->
+        {% if events %}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for event in events %}
+                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-700">
+                    <!-- Event Image -->
+                    <div class="h-48 overflow-hidden">
+                        <img src="{{ event.event.event_img.url }}" alt="{{ event.event.name }}" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
+                    </div>
+                    
+                    <!-- Event Content -->
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <span class="inline-block bg-cyan-900/50 text-cyan-300 text-xs px-2 py-1 rounded-full border border-cyan-700">
+                                    {{ event.event.category }}
+                                </span>
+                                <span class="ml-2 inline-flex items-center text-xs text-cyan-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+                                    </svg>
+                                    {{ event.event.date|date:"M j, Y" }} • {{ event.event.time|time:"g:i A" }}
+                                </span>
+                            </div>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {% if event.rsvp %}bg-green-900 text-green-200{% else %}bg-amber-900 text-amber-200{% endif %}">
+                                {{ event.rsvp|yesno:"Confirmed,Pending" }}
+                            </span>
+                        </div>
+
+                        <h3 class="text-xl font-bold text-white mb-2">{{ event.event.name }}</h3>
+                        <p class="text-gray-300 text-sm mb-4 line-clamp-2">{{ event.event.description }}</p>
+                        
+                        <div class="flex items-center text-sm text-gray-400 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5 text-cyan-400" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                            </svg>
+                            <span>{{ event.event.location }}</span>
+                        </div>
+
+                        <div class="flex justify-between items-center pt-4 border-t border-gray-700">
+                            <a href="{% url 'event-detail' event.event.id %}" class="text-cyan-400 hover:text-cyan-300 text-sm font-medium flex items-center">
+                                View Details
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                            <a href="{% url 'cancel-rsvp' event.event.id %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                                Cancel RSVP
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <!-- Empty State -->
+            <div class="text-center py-16 bg-gray-800/50 rounded-2xl border-2 border-dashed border-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-16 w-16 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <h3 class="mt-4 text-lg font-medium text-gray-300">No upcoming events</h3>
+                <p class="mt-2 text-sm text-gray-500 max-w-md mx-auto">You haven't RSVP'd to any events yet. Check out our events page to find something exciting!</p>
+                <div class="mt-6">
+                    <a href="{% url 'events' %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
+                        Browse Events
+                    </a>
+                </div>
+            </div>
+        {% endif %}
     </div>
 </div>
+
+<!-- Custom Scrollbar -->
+<style>
+    /* Custom scrollbar for webkit browsers */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        @apply bg-gray-800;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        @apply bg-cyan-700 rounded-full;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        @apply bg-cyan-600;
+    }
+    
+    /* For Firefox */
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: #0e7490 #1f2937;
+    }
+</style>
 {% endblock content %}
