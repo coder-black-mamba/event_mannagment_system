@@ -4,126 +4,281 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}DJ Baharul Event's{% endblock %}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <title>{% block title %}DJ Baharul Events{% endblock %}</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Google Font -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link href="{% static 'css/output.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+
+    <style>
+      body {
+        font-family: 'Lexend', sans-serif;
+        background: linear-gradient(to bottom right, #f9fafb, #f1f5f9);
+      }
+    </style>
   </head>
-  <body>
+
+  <body class="text-gray-800">
+    <!-- Navbar -->
     <nav
-      class="bg-white border-gray-200 dark:bg-gray-200 fixed-top shadow-b-md"
+      class="fixed top-0 left-0 w-full z-50 bg-gray-900 backdrop-blur-md   shadow-sm transition"
     >
       <div
-        class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
+        class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4"
       >
-        <a href="/" class="text-2xl font-semibold"> DJB EMS </a>
+        <!-- Logo -->
+        <a
+          href="/"
+          class="text-2xl font-bold tracking-tight bg-gradient-to-r from-indigo-500 to-cyan-500 bg-clip-text text-transparent"
+          >DJB EMS</a
+        >
+
+        <!-- Mobile Button -->
         <button
-          class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 cursor-pointer"
           id="navbar-btn"
+          class="md:hidden text-gray-700 hover:text-sky-500 focus:outline-none"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
+            fill="none"
             viewBox="0 0 24 24"
-            fill="currentColor"
-            class="size-6"
+            stroke-width="2"
+            stroke="currentColor"
+            class="w-7 h-7"
           >
             <path
-              fill-rule="evenodd"
-              d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z"
-              clip-rule="evenodd"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4 6h16M4 12h16m-7 6h7"
             />
           </svg>
         </button>
 
-        <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-          <ul
-            class="font-medium flex justify-center items-center flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-4 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-200 md:dark:bg-gray-200 dark:border-gray-200"
+        <!-- Desktop Menu -->
+        <div
+          id="navbar-default"
+          class="hidden md:flex items-center space-x-6 font-medium"
+        >
+          <a
+            href="{% url 'home' %}"
+            class="text-gray-700 hover:text-sky-600 transition"
+            >Home</a
           >
-            <li>
-              <a
-                href="{% url 'home' %}"
-                class="block py-2 px-3 md:p-0"
-                aria-current="page"
-                >Home</a
-              >
-            </li>
-            <li>
-              <a href="{% url 'event-list' %}" class="block py-2 px-3 md:p-0"
-                >Events</a
-              >
-            </li>
-            <li>
-              <a href="{% url 'search-view' %}" class="block py-2 px-3 md:p-0"
-                >Search</a
-              >
-            </li>
-            {% comment %} logged out section {% endcomment %}
-            {% if not user.is_authenticated %}
-            <li class="px-4 py-0 mb-2 md:mb-0 md:py-1 bg-transparent text-blue-500 hover:bg-blue-600 hover:text-white border border-blue-500  rounded cursor-pointer ">
-              <a
-                href="{% url 'login' %}"
-                class="block py-2 px-3 md:p-0 "
-                >Log In</a
-              >
-            </li>
-            <li class="px-4 py-0 mb-2 md:mb-0 md:py-1 bg-rose-500 text-white  rounded cursor-pointer hover:bg-rose-600">
-              <a
-                href="{% url 'register' %}"
-                class="block py-2 px-3 md:p-0 "
-                >Register</a
-              >
-            </li>
+          <a
+            href="{% url 'event-list' %}"
+            class="text-gray-700 hover:text-sky-600 transition"
+            >Events</a
+          >
+          <a
+            href="{% url 'search-view' %}"
+            class="text-gray-700 hover:text-sky-600 transition"
+            >Search</a
+          >
+
+          {% if user.is_authenticated %}
+          <a
+            href="{% url 'dashboard' %}"
+            class="text-gray-700 hover:text-sky-600 transition"
+            >Dashboard</a
+          >
+          <a
+            href="{% url 'profile' %}"
+            class="text-gray-700 hover:text-sky-600 transition"
+            >Profile</a
+          >
+
+          <!-- Profile Avatar -->
+          <div class="relative group">
+            {% if user.profile_picture %}
+            <img
+              src="{{ user.profile_picture.url }}"
+              alt="Profile Picture"
+              class="w-10 h-10 rounded-full object-cover ring-2 ring-sky-500 shadow-sm cursor-pointer"
+            />
+            {% else %}
+            <div
+              class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-r from-rose-500 to-sky-500 text-white font-semibold cursor-pointer ring-2 ring-white shadow-md"
+            >
+              {{ user.username|slice:"1"|upper }}
+            </div>
             {% endif %}
-              {% comment %} logged in section {% endcomment %}
-            {% if user.is_authenticated %}
-            <li>
-              <a
-                href="{% url 'dashboard' %}"
-                class="block py-2 px-3 md:p-0"
-                >Dashboard</a
-              >
-            </li>
-            <li>
+
+            <!-- Dropdown -->
+            <div
+              class="hidden group-hover:block absolute right-0 mt-3 w-44 bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100"
+            >
               <a
                 href="{% url 'profile' %}"
-                class="block py-2 px-3 md:p-0"
-                >Profile</a
+                class="block px-4 py-2 text-gray-700 hover:bg-sky-50"
+                >My Profile</a
               >
-            </li>
-            <li class="w-10 h-10 bg-rose-500 text-white  rounded-full cursor-pointer hover:bg-rose-600 flex items-center justify-center">
-              {% if user.profile_picture %}
-              <img src="{{user.profile_picture.url}}" alt="Profile Picture" class="w-10 h-10 object-cover rounded-full">
-              {% else %}
-              {{user.username|slice:"1" |upper}}
-              {% endif %} 
-            </li>
-            <li class="px-4 py-0 mb-2 md:mb-0 md:py-1 bg-rose-500 text-white  rounded cursor-pointer hover:bg-rose-600">
               <a
                 href="{% url 'logout' %}"
-                class="block py-2 px-3 md:p-0 "
+                class="block px-4 py-2 text-rose-600 hover:bg-rose-50"
                 >Logout</a
               >
-            </li>
-            {% endif %}
-            
-          </ul>
+            </div>
+          </div>
+          {% else %}
+          <div class="flex items-center space-x-3">
+            <a
+              href="{% url 'login' %}"
+              class="px-4 py-2 border border-sky-500 text-sky-600 rounded-lg hover:bg-sky-500 hover:text-white transition"
+              >Log In</a
+            >
+            <a
+              href="{% url 'register' %}"
+              class="px-4 py-2 bg-gradient-to-r from-rose-500 to-sky-500 text-white rounded-lg hover:opacity-90 transition"
+              >Register</a
+            >
+          </div>
+          {% endif %}
         </div>
       </div>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-white border-t border-gray-100 py-3 px-6 space-y-3 text-gray-700"
+      >
+        <a href="{% url 'home' %}" class="block hover:text-sky-600">Home</a>
+        <a href="{% url 'event-list' %}" class="block hover:text-sky-600"
+          >Events</a
+        >
+        <a href="{% url 'search-view' %}" class="block hover:text-sky-600"
+          >Search</a
+        >
+        {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}" class="block hover:text-sky-600"
+          >Dashboard</a
+        >
+        <a href="{% url 'profile' %}" class="block hover:text-sky-600"
+          >Profile</a
+        >
+        <a href="{% url 'logout' %}" class="block text-rose-600 hover:text-rose-700"
+          >Logout</a
+        >
+        {% else %}
+        <a
+          href="{% url 'login' %}"
+          class="block text-sky-600 border border-sky-500 px-3 py-1 rounded-lg"
+          >Login</a
+        >
+        <a
+          href="{% url 'register' %}"
+          class="block bg-gradient-to-r from-rose-500 to-sky-500 text-white px-3 py-1 rounded-lg"
+          >Register</a
+        >
+        {% endif %}
+      </div>
     </nav>
-    <div class="min-h-[100vh-100px]">
-    {% block content %} {% endblock content %}
+
+    <!-- Main Content -->
+    <main
+      class=" pt-16 min-h-screen animate-fadeIn"
+    >
+      {% block content %} {% endblock %}
+    </main>
+
+    <!-- Footer -->
+<footer class="bg-gray-900 border-t border-gray-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <!-- Logo and Description -->
+      <div class="space-y-4">
+        <div class="text-2xl font-bold bg-gradient-to-r from-indigo-500 to-cyan-500 bg-clip-text text-transparent">
+          DJB EMS
+        </div>
+        <p class="text-gray-400 text-sm">
+          Your gateway to unforgettable events and experiences. Find, book, and enjoy the best events in town.
+        </p>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-twitter text-lg"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-facebook text-lg"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-instagram text-lg"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-linkedin text-lg"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-white font-medium mb-4">Quick Links</h3>
+        <ul class="space-y-3">
+          <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-white text-sm transition-colors">Home</a></li>
+          <li><a href="{% url 'event-list' %}" class="text-gray-400 hover:text-white text-sm transition-colors">Events</a></li>
+          <li><a href="{% url 'search-view' %}" class="text-gray-400 hover:text-white text-sm transition-colors">Search</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'dashboard' %}" class="text-gray-400 hover:text-white text-sm transition-colors">Dashboard</a></li>
+          {% endif %}
+        </ul>
+      </div>
+
+      <!-- Company -->
+      <div>
+        <h3 class="text-white font-medium mb-4">Company</h3>
+        <ul class="space-y-3">
+          <li><a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">About Us</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Careers</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Blog</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h3 class="text-white font-medium mb-4">Contact Us</h3>
+        <ul class="space-y-3 text-gray-400 text-sm">
+          <li class="flex items-start space-x-2">
+            <i class="fas fa-envelope mt-0.5"></i>
+            <span>contact@djbevents.com</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <i class="fas fa-phone mt-0.5"></i>
+            <span>+1 (555) 123-4567</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <i class="fas fa-map-marker-alt mt-0.5"></i>
+            <span>123 Event Street, San Francisco, CA 94103</span>
+          </li>
+        </ul>
+      </div>
     </div>
 
-    <footer class="bg-gray-200 mt-5">
-      <div class="container mx-auto text-center p-3">
-        <p>&copy; 2025 DJB EMS and Abu Sayed. All rights reserved.</p>
+    <!-- Bottom Bar -->
+    <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+      <p class="text-gray-500 text-sm">
+        &copy; {% now "Y" %} DJB EMS. All rights reserved.
+      </p>
+      <div class="flex space-x-6 mt-4 md:mt-0">
+        <a href="#" class="text-gray-500 hover:text-white text-sm transition-colors">Privacy Policy</a>
+        <a href="#" class="text-gray-500 hover:text-white text-sm transition-colors">Terms of Service</a>
+        <a href="#" class="text-gray-500 hover:text-white text-sm transition-colors">Cookies</a>
       </div>
-    </footer>
-    <script src="{% static 'js/base.js' %}"></script>
+    </div>
+  </div>
+</footer>
+
+    <script>
+      const navBtn = document.getElementById("navbar-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      navBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+    </script>
   </body>
 </html>
