@@ -1,11 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container mx-auto">
-    <h2 class="text-2xl font-bold mb-4">No Permission</h2>
-    <p class="text-gray-600 mb-4">You do not have permission to access this page</p>
-    <p class="text-gray-600 mb-4">Please contact the administrator for assistance or try to login with another account</p>
-    <a href="{% url 'login' %}" class="bg-blue-500 block mt-2 cursor-pointer px-2 py-1 text-white font-semibold rounded">Login</a>
-    <a href="{% url 'register' %}" class="bg-blue-500 block mt-2 cursor-pointer px-2 py-1 text-white font-semibold rounded">Register</a>
-    <a href="{% url 'home' %}" class="bg-blue-500 block mt-2 cursor-pointer px-2 py-1 text-white font-semibold rounded">Home</a>
+<div class="min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8 bg-cyan-50 p-8 rounded-lg shadow-md">
+        <div class="text-center">
+            <svg class="mx-auto h-16 w-16 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+            </svg>
+            <h2 class="mt-6 text-3xl font-extrabold text-gray-900">Access Denied</h2>
+            <p class="mt-2 text-sm text-gray-600">
+                You don't have permission to access this page.
+            </p>
+            <p class="mt-1 text-sm text-gray-500">
+                Please contact the administrator or try a different account.
+            </p>
+        </div>
+        <div class="mt-8 space-y-4">
+            <a href="{% url 'login' %}" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition-colors">
+                Sign in to another account
+            </a>
+            <div class="flex justify-between text-sm">
+                <a href="{% url 'register' %}" class="font-medium text-cyan-600 hover:text-blue-500">
+                    Create new account
+                </a>
+                <a href="{% url 'home' %}" class="font-medium text-gray-600 hover:text-gray-500">
+                    Return home
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock content %}
