@@ -8,6 +8,9 @@ from django.utils import timezone
 from django.db.models import Sum
 from utils.auth import is_admin,is_organizer,is_participant
 from django.contrib.auth.decorators import login_required,permission_required
+from django.shortcuts import get_object_or_404
+
+
 # Create your views here.
 
 def event_list(request):
@@ -62,14 +65,22 @@ def update_event(request,id):
 # delete event
 @login_required(login_url="login")
 @permission_required('events.delete_event', login_url="no-permission")
-def delete_event(request,id):
-    event = Event.objects.get(id=id)
-    if not event:
-        return redirect("event-list")
+def delete_event(request, id):
+    event = get_object_or_404(Event, id=id)
+    
+    # Optional: Check if the current user is the owner of the event
+    # if event.organizer != request.user:
+    #     messages.error(request, "You don't have permission to delete this event.")
+    #     return redirect("event-list")
+    
     if request.method == "POST":
+        print("Event Deletion Fired")
         event.delete()
+        messages.success(request, "Event deleted successfully!")
         return redirect("event-list")
-    return render(request,"event-delete.html",{"event":event})
+        
+    return render(request, "event-delete.html", {"event": event})
+
 
 
 
