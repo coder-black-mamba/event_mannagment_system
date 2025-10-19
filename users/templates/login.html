@@ -1,106 +1,159 @@
 {% extends 'base.html' %}
-
 {% block title %}Login - Event Management{% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-gradient-to-b from-gray-900 to-cyan-500 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-    <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 class="mt-6 text-center text-3xl font-extrabold text-white">
-            Welcome back
-        </h2>
-        <p class="mt-2 text-center text-sm text-white/90">
-            Sign in to your account
-        </p>
-    </div>
-
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-lg">
-        <div class="bg-gray-300 py-8 px-4 shadow-xl sm:rounded-2xl sm:px-10">
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="mb-4 p-4 rounded-md bg-red-50">
-                        <div class="flex">
-                            <div class="flex-shrink-0">
-                                <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                            <div class="ml-3">
-                                <p class="text-sm font-medium text-red-800">
-                                    {{ message }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% endif %}
-
-            <form class="space-y-6" action="{% url 'login' %}" method="post">
-                {% csrf_token %}
-                
-                {% for field in form %}
-                    <div>
-                        <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700">
-                            {{ field.label }}
-                        </label>
-                        <div class="mt-1">
-                            <input type="{{ field.field.widget.input_type }}" 
-                                   name="{{ field.name }}" 
-                                   id="{{ field.id_for_label }}"
-                                   autocomplete="{{ field.field.widget.attrs.autocomplete }}"
-                                   class="appearance-none block w-full px-3 py-2 border border-gray-400 rounded-lg shadow-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 sm:text-sm transition duration-150 ease-in-out"
-                                   {% if field.value %}value="{{ field.value }}"{% endif %}
-                                   {% if field.field.required %}required{% endif %}>
-                        </div>
-                        {% if field.help_text %}
-                            <p class="mt-1 text-xs text-gray-500">{{ field.help_text }}</p>
-                        {% endif %}
-                        {% if field.errors %}
-                            <p class="mt-1 text-sm text-red-600">{{ field.errors|striptags }}</p>
-                        {% endif %}
-                    </div>
-                {% endfor %}
-
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-sky-600 focus:ring-sky-500 border-gray-400 rounded">
-                        <label for="remember-me" class="ml-2 block text-sm text-gray-700">
-                            Remember me
-                        </label>
-                    </div>
-
-                    <div class="text-sm">
-                        <a href="{% url 'password-reset' %}" class="font-medium text-sky-600 hover:text-sky-500">
-                            Forgot your password?
-                        </a>
-                    </div>
-                </div>
-
-                <div>
-                    <button type="submit" class="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-sky-500 to-cyan-600 hover:from-sky-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-all duration-200 ease-in-out transform hover:-translate-y-0.5">
-                        Sign in
-                    </button>
-                </div>
-            </form>
-
-            <div class="mt-6">
-                <div class="relative">
-                    <div class="absolute inset-0 flex items-center">
-                        <div class="w-full border-t border-gray-400"></div>
-                    </div>
-                    <div class="relative flex justify-center text-sm">
-                        <span class="px-2 text-gray-700">
-                            Don't have an account?
-                        </span>
-                    </div>
-                </div>
-
-                <div class="mt-6">
-                    <a href="{% url 'register' %}" class="w-full flex items-center justify-center px-4 py-2.5 border border-gray-400 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition duration-150 ease-in-out">
-                        Create new account
-                    </a>
-                </div>
-            </div>
+<div class="min-h-screen bg-gradient-to-br from-indigo-900 via-sky-900 to-cyan-900 flex items-center justify-center p-4 sm:p-6 lg:p-8">
+  <div class="w-full max-w-md">
+    <div class="bg-white/5 backdrop-blur-sm   rounded-2xl shadow-2xl shadow-cyan-500/10 overflow-hidden">
+      <div class="px-8 py-10 sm:px-10">
+        <!-- Logo & Header -->
+        <div class="text-center mb-10">
+          <div class="mx-auto w-16 h-16 mb-4 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 flex items-center justify-center shadow-lg">
+            <i class="fas fa-calendar-alt text-white text-2xl"></i>
+          </div>
+          <h1 class="text-3xl font-bold bg-gradient-to-r from-indigo-400 via-sky-400 to-cyan-400 bg-clip-text text-transparent">
+            Welcome Back
+          </h1>
+          <p class="mt-2 text-cyan-200/80">Sign in to your account to continue</p>
         </div>
+
+        <!-- Messages -->
+        {% if messages %}
+          {% for message in messages %}
+          <div class="mb-6 p-4 rounded-lg bg-red-500/10  text-red-100 flex items-start">
+            <svg class="w-5 h-5 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-sm">{{ message }}</span>
+          </div>
+          {% endfor %}
+        {% endif %}
+
+        <form class="space-y-6" action="{% url 'login' %}" method="post">
+          {% csrf_token %}
+          
+          {% for field in form %}
+          <div>
+            <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-cyan-100 mb-1">
+              {{ field.label }}
+            </label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-cyan-400">
+                {% if field.name == 'username' %}
+                  <i class="far fa-user"></i>
+                {% else %}
+                  <i class="fas fa-lock"></i>
+                {% endif %}
+              </div>
+              <input
+                type="{{ field.field.widget.input_type }}"
+                name="{{ field.name }}"
+                id="{{ field.id_for_label }}"
+                autocomplete="{{ field.field.widget.attrs.autocomplete }}"
+                class="pl-10 w-full px-4 py-3 bg-white/5 border border-cyan-500/20 rounded-lg text-cyan-100 placeholder-cyan-400/60 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-transparent transition duration-200"
+                {% if field.value %}value="{{ field.value }}"{% endif %}
+                {% if field.field.required %}required{% endif %}
+              />
+              {% if field.name == 'password' %}
+              <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-cyan-400 hover:text-cyan-200" onclick="togglePassword('{{ field.id_for_label }}')">
+                <i class="far fa-eye"></i>
+              </button>
+              {% endif %}
+            </div>
+            {% if field.help_text %}
+              <p class="mt-1 text-xs text-cyan-400/60">{{ field.help_text }}</p>
+            {% endif %}
+            {% if field.errors %}
+              <p class="mt-1 text-sm text-rose-400">{{ field.errors|striptags }}</p>
+            {% endif %}
+          </div>
+          {% endfor %}
+
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <input
+                id="remember-me"
+                name="remember-me"
+                type="checkbox"
+                class="h-4 w-4 rounded border-cyan-500/50 bg-cyan-900/50 text-cyan-400 focus:ring-cyan-500/50"
+              />
+              <label for="remember-me" class="ml-2 block text-sm text-cyan-200">
+                Remember me
+              </label>
+            </div>
+
+            <div class="text-sm">
+              <a href="{% url 'password-reset' %}" class="font-medium text-cyan-300 hover:text-cyan-200 transition-colors">
+                Forgot password?
+              </a>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <button
+              type="submit"
+              class="group relative w-full flex justify-center py-3 px-4   text-sm font-medium rounded-lg text-white bg-gradient-to-r from-indigo-500 via-sky-500 to-cyan-500 hover:from-indigo-600 hover:via-sky-600 hover:to-cyan-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500/50 transition-all duration-200 transform hover:-translate-y-0.5 shadow-lg shadow-cyan-500/20 cursor-pointer"
+            >
+              <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                <i class="fas fa-sign-in-alt"></i>
+              </span>
+              Sign in
+            </button>
+          </div>
+        </form>
+
+        <!-- Social Auth -->
+        <div class="mt-8">
+          <div class="relative">
+            <div class="absolute inset-0 flex items-center">
+              <div class="w-full border-t border-cyan-500/20"></div>
+            </div>
+            <div class="relative flex justify-center text-sm">
+              <span class="px-2 bg-transparent text-cyan-300/70">Or continue with</span>
+            </div>
+          </div>
+
+          <div class="mt-6 grid grid-cols-2 gap-3">
+            <a href="#" class="w-full flex items-center justify-center px-4 py-2.5 border border-cyan-500/20 rounded-lg shadow-sm text-sm font-medium text-cyan-100 bg-cyan-900/30 hover:bg-cyan-800/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500/30 transition-all duration-200">
+              <i class="fab fa-google text-red-400 mr-2"></i>
+              Google
+            </a>
+            <a href="#" class="w-full flex items-center justify-center px-4 py-2.5 border border-cyan-500/20 rounded-lg shadow-sm text-sm font-medium text-cyan-100 bg-cyan-900/30 hover:bg-cyan-800/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500/30 transition-all duration-200">
+              <i class="fab fa-github text-gray-200 mr-2"></i>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Sign Up Link -->
+        <div class="mt-8 text-center">
+          <p class="text-sm text-cyan-300/80">
+            Don't have an account? 
+            <a href="{% url 'register' %}" class="font-medium text-white hover:text-cyan-200 transition-colors">
+              Sign up
+            </a>
+          </p>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function togglePassword(inputId) {
+    const input = document.getElementById(inputId);
+    const icon = event.currentTarget.querySelector('i');
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.classList.remove('fa-eye');
+      icon.classList.add('fa-eye-slash');
+    } else {
+      input.type = 'password';
+      icon.classList.remove('fa-eye-slash');
+      icon.classList.add('fa-eye');
+    }
+  }
+</script>
 {% endblock %}
