@@ -1,67 +1,108 @@
+# 🎉 Event Management System
 
+## 📋 Project Description
+A comprehensive Event Management System built with Django that allows users to create, manage, and participate in events. This system provides a platform for event organizers to host events and for participants to discover and register for events that interest them.
 
+## ✨ Key Features
 
+### 🎯 User Management
+- User registration and authentication
+- Role-based access control (Admin, Organizer, Participant)
+- User profiles with customizable information
+- Secure password management
 
+### 📅 Event Management
+- Create and manage events
+- Event categorization and search
+- Event registration and ticketing
+- Event scheduling and calendar integration
 
-https://docs.google.com/document/d/1PgJGUL81vlEodfE5v4jv8dw1dB2plZpApYLJaxebT6g/edit?tab=t.0#heading=h.tsuo55wz8h4
+### 👥 User Profiles
+- Personal information management
+- Profile picture upload
+- Event participation history
+- Saved/favorite events
 
-Mid Term Exam: Enhancing Event Management System
-Objective:
-Enhance the Event Management System by refactoring function-based views (FBVs) into class-based views (CBVs), implementing user profile features, and creating a custom user model.
+### 🔒 Security
+- Secure authentication system
+- Role-based permissions
+- CSRF protection
+- Secure file uploads
 
-Requirements & Instructions:
-1. Convert Function-Based Views to Class-Based Views (25 Marks)
-Convert at least five (5) function-based views to class-based views.
-List the modified views in your submission document.
-Ensure the CBVs maintain the same functionality as before.
-2. Implement Profile Features (30 Marks)
-Profile Page: Users should be able to view their profile.
-Edit Profile: Allow users to update their information (first name, last name, profile picture, phone number, etc.).
-Change Password: Implement a password change feature within the profile section.
-Reset Password: Provide an email-based password reset functionality.
-3. Create a Custom User Model (25 Marks)
-Modify the default Django User model to include:
-Profile Picture (ImageField with a default image)
-Phone Number (CharField with validation)
-Ensure the profile picture is properly stored and served.
-Update authentication forms to use the custom user model.
+## 🛠️ Technical Stack
+- **Backend**: Django 4.2
+- **Frontend**: HTML5, CSS3, JavaScript, Bootstrap 5
+- **Database**: SQLite (Development), PostgreSQL (Production)
+- **Authentication**: Django Allauth
+- **Static Files**: WhiteNoise
+- **Deployment**: Docker, Nginx, Gunicorn
 
+## 🚀 Getting Started
 
+### Prerequisites
+- Python 3.9+
+- pip (Python package manager)
+- Virtual environment (recommended)
 
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/event-management-system.git
+   cd event-management-system
+   ```
 
-Grading Breakdown (Total: 80 Marks):
-Section
-Marks
-Convert Function-Based Views to Class-Based Views
-25
-Implement Profile Features
-30
-Create a Custom User Model
-Practice Problem 17.5
-25
-20
-Total
-100
+2. Create and activate a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Submission Guidelines: Provide a google docs link with the following information
-Provide a Document with the Following Information:
-GitHub branch link: mid-term-exam
-Live deployed link
-Modified views list (FBV → CBV)
-Admin panel credentials and test users for different roles
-Code Submission:
-Create a new Git branch named mid-term-exam
-Commit and push all changes to mid-term-exam
-Merge mid-term-exam into main and push to GitHub
-Deploy the project and provide the live link
-Provide Credentials for Different User Roles:
-Admin
-Organizer
-Participant
-View Conversion Documentation:
-Clearly list the names of the views that were converted from function-based to class-based views with full path
-<your_app_name>.views.py
-ViewName 1
-ViewName 2
+4. Set up the database:
+   ```bash
+   python manage.py migrate
+   ```
 
+5. Create a superuser:
+   ```bash
+   python manage.py createsuperuser
+   ```
+
+6. Run the development server:
+   ```bash
+   python manage.py runserver
+   ```
+
+7. Access the application at `http://127.0.0.1:8000/`
+
+## 📂 Project Structure
+```
+event_management_system/
+├── accounts/            # User authentication and profiles
+├── events/              # Event management
+├── static/              # Static files (CSS, JS, images)
+├── templates/           # HTML templates
+├── manage.py            # Django management script
+└── requirements.txt     # Project dependencies
+```
+
+## 🤝 Contributing
+Contributions are welcome! Please follow these steps:
+1. Fork the repository
+2. Create a new branch for your feature
+3. Commit your changes
+4. Push to the branch
+5. Create a new Pull Request
+
+## 📄 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 📧 Contact
+For any inquiries, please contact [your-email@example.com](mailto:your-email@example.com)
+
+---
+*Last Updated: October 20, 2025*
